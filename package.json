@@ -1,0 +1,13 @@
+{
+  "name": "Mor_mini_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:chinttmor/Mor_mini_project.git",
+  "author": "chinttmor <chi.ntt@mor.com.vn>",
+  "license": "MIT",
+  "dependencies": {
+    "@nestjs/microservices": "^10.2.8",
+    "mysql": "^2.18.1",
+    "typeorm": "^0.3.17"
+  }
+}
