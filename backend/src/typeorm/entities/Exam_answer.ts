@@ -1,19 +1,17 @@
+// examId	tinyint PK
+// studentId	tinyint
+// quizId	tinyint
+// answer	json
 import { Column, Entity, PrimaryGeneratedColumn, } from "typeorm";
 
-@Entity({name:'Exam'})
-export class Exam{
+@Entity({name:'Exam_answer'})
+export class Exam_answer{
     @PrimaryGeneratedColumn({type:'tinyint'})
     examId : number;
-    @Column()
-    tilte: string;
     @Column({type:'tinyint'})
-    total_mark : number;
+    studentId : number;
     @Column({type:'tinyint'})
-    total_time : number;
+    quizId : number;
     @Column()
     createTime: string;
-    @Column({type:'tinyint'})
-    courseId : number;
-    @Column({type:'tinyint'})
-    teacherId : number;
 }
