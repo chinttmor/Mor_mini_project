@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn, } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, } from "typeorm";
+import { Course } from "./Course";
 
 @Entity({name:'Teacher'})
 export class Teacher{
     @PrimaryGeneratedColumn({type:'tinyint'})
-    studentId : number;
+    teacherId : number;
     @Column()
     name: string;
     @Column()
@@ -14,4 +15,6 @@ export class Teacher{
     phone : string;
     @Column()
     zone : string;
+    @OneToMany(()=> Course, (course)=>course.teacherId)
+    course: Course[];
 }

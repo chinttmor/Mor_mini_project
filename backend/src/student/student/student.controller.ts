@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put, Req ,Delete} from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put, Req ,Delete, UsePipes, ValidationPipe} from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDTO } from '../dto/CreateStudent.dto';
 import { Request } from 'express';
@@ -24,7 +24,8 @@ export class StudentController {
     }
     //Crete new one
     @Post()
-    createStudent(@Body() studentDetails: CreateStudentDTO){
+    @UsePipes(new ValidationPipe)
+    async createStudent(@Body() studentDetails: CreateStudentDTO){
         this.studentService.createStudent(studentDetails);
     }
     //Update one
