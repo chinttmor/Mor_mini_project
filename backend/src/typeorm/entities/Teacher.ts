@@ -15,6 +15,6 @@ export class Teacher{
     phone : string;
     @Column()
     zone : string;
-    @OneToMany(()=> Course, (course)=>course.teacherId)
-    course: Course[];
+    @OneToMany(()=> Course, (course)=>course.teacher)
+    courses: Course[];
 }

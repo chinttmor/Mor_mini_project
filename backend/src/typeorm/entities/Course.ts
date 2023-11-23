@@ -9,8 +9,8 @@ export class Course{
     courseName: string;
     @Column()
     courseDescription: string;
-    // @Column({type:'tinyint'})
-    // teacherId : number;
-    @ManyToOne(()=>Teacher, (teacher)=>teacher.teacherId)
-    teacherId = Teacher;
+    @Column({type:'tinyint'})
+    teacherId : number;
+    @ManyToOne(()=> Teacher,(teacher)=> teacher.courses)
+    teacher = Teacher;
 }

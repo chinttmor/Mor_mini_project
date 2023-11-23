@@ -1,8 +1,10 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put, Req ,Delete, UsePipes, ValidationPipe} from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Put, Req ,Delete, UsePipes, ValidationPipe, NotFoundException} from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDTO } from '../dto/CreateStudent.dto';
 import { Request } from 'express';
-
+import { UpdateStudentDTO } from '../dto/UpdateStudent.dto'
+import { HttpStatus } from '@nestjs/common';
+import { HttpException } from '@nestjs/common';
 @Controller('student')
 export class StudentController {
     constructor(private readonly studentService: StudentService){
@@ -20,6 +22,9 @@ export class StudentController {
     @Get(':id')
     async getStudentbyId(@Param('id') id: number){
         const student = await this.studentService.findStudentbyId(id);
+        if(!student[0]&&student.length==0){
+            throw new NotFoundException('Cant find student by the id: '+ id );
+        }
         return student;
     }
     //Crete new one
@@ -30,9 +35,10 @@ export class StudentController {
     }
     //Update one
     @Patch(':id')
+    @UsePipes(new ValidationPipe)
     async updateStudentbyId(
         @Param('id',ParseIntPipe) id: number,
-        @Body() studentNewDetails: CreateStudentDTO){
+        @Body() studentNewDetails: UpdateStudentDTO){
         const updateStudent = await this.studentService.changeStudentDetails(id,studentNewDetails)
         return updateStudent
     }

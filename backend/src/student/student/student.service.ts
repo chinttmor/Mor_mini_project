@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Student } from '../../typeorm/entities/Student';
 import { CreateStudentDTO } from '../dto/CreateStudent.dto';
+import { UpdateStudentDTO } from '../dto/UpdateStudent.dto';
 @Injectable()
 export class StudentService {
   constructor(
@@ -12,8 +13,8 @@ export class StudentService {
   findStudentbyId(id: number) {
     return this.studentRepo.find({
       select: {
-        studentId: true,
-        name: true,
+        // studentId: true,
+        // name: true,
       },
       where: {
         studentId: id,
@@ -27,7 +28,7 @@ export class StudentService {
     this.studentRepo.save(newStudent);
   }
 
-  changeStudentDetails(id: number, studentNewDetails: CreateStudentDTO) {
+  changeStudentDetails(id: number, studentNewDetails: UpdateStudentDTO) {
     return this.studentRepo.update(id, { ...studentNewDetails });
   }
 
