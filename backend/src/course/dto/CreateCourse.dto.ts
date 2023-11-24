@@ -16,6 +16,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
+import { Teacher } from 'src/typeorm/entities/Teacher';
 import { PrimaryGeneratedColumn } from 'typeorm';
 
 export class CreateCourseDTO {
@@ -26,12 +27,9 @@ export class CreateCourseDTO {
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
-  coursename: string;
+  courseName: string;
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
   courseDescription: string;
-//   @IsNumber()
-//   @IsNotEmpty()
-//   teacherId: number;
 }

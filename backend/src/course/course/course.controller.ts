@@ -14,6 +14,7 @@ import {
   ValidationPipe,
   NotFoundException,
 } from '@nestjs/common';
+import { CreateCourseDTO } from '../dto/CreateCourse.dto';
 
 @Controller('course')
 export class CourseController {
@@ -27,5 +28,12 @@ export class CourseController {
     //      throw new NotFoundException('Cant find course by the id: '+ id );
     //  }
     return course;
+  }
+  @Post(':id')
+  @UsePipes(new ValidationPipe)
+  async createCourse(@Body() createCourse: CreateCourseDTO, @Param('id') teacherId: number){
+    console.log(createCourse,teacherId)
+    const newCourse= await this.courseService.createCourse(createCourse,teacherId);
+    return newCourse;
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Course } from '../../typeorm/entities/Course';
@@ -14,18 +14,26 @@ export class CourseService {
     @InjectRepository(Teacher) private teacherRepo: Repository<Teacher>,
   ) {}
 
-  //find teacher
-  findteacher(id: number) {
-    return this.teacherRepo.findOne({ where: { teacherId: id } });
-  }
   findCoursebyId(id: number) {
     return this.courseRepo
-    .createQueryBuilder("course")
-    .where("course.courseId = :id",{id})
-    .getOneOrFail()
+      .createQueryBuilder('course')
+      .innerJoin('course.teacher', 'teacher')
+      .addSelect(['teacher.name', 'teacher.zone'])
+      .where('course.courseId = :id', { id })
+      .getOneOrFail();
   }
-//   findCourseTeacher(){
-
-//   }
-  createCourse(createCourse: CreateCourseDTO, teacherId) {}
+  async createCourse(createCourse: CreateCourseDTO, teacherId: number) :Promise<Course> {
+    const courseTeacher: Teacher = await this.teacherRepo.findOne({
+      where: { teacherId: 1 },
+    });
+    if (!courseTeacher) {
+      throw new HttpException('Teacher doesnt exist', HttpStatus.BAD_REQUEST);
+    }
+    // return courseTeacher
+    return this.courseRepo.save
+    ({
+      ...createCourse,
+      courseTeacher
+    });
+  }
 }
