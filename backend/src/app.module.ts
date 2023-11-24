@@ -18,8 +18,8 @@ import { CourseModule } from './course/course.module';
     host: 'localhost',
     port: 3306,
     username: 'root',
-    password: 'chimor123@',
-    database: 'Custom',
+    password: 'thaochi1110',
+    database: 'custom',
     entities:[Student,Exam,Course,Exam_answer,Quiz,Student_list,Teacher],
     synchronize: false
   }), StudentModule,CourseModule],

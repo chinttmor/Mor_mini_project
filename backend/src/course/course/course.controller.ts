@@ -21,7 +21,7 @@ export class CourseController {
 
   //Find by id
   @Get(':id')
-  async getStudentbyId(@Param('id') id: number) {
+  async findCoursebyId(@Param('id') id: number) {
     const course = await this.courseService.findCoursebyId(id);
     //  if(!course){
     //      throw new NotFoundException('Cant find course by the id: '+ id );
