@@ -11,7 +11,7 @@ export class Course{
     courseDescription: string;
     // @Column({type:'tinyint'})
     // teacherId : number;
-    @ManyToOne(() => Teacher, (teacher) => teacher.teacherId)
-    @JoinColumn({ name: 'teacherId' })
-    teacher: Teacher
+    @ManyToOne(()=> Teacher,(teacher)=> teacher.courses)
+    @JoinColumn({name: 'teacherId'})
+    teacher = Teacher;
 }
