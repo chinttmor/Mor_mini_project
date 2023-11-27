@@ -15,7 +15,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateCourseDTO } from '../dto/CreateCourse.dto';
-
+import { Quiz } from 'src/decorators/quiz.decorator';
 @Controller('course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
@@ -36,4 +36,8 @@ export class CourseController {
     const newCourse= await this.courseService.createCourse(createCourse,teacherId);
     return newCourse;
   }
+  // @Post('/test')
+  // async test(@Quiz() quiz: QuizType){
+  //   console.log(quiz)
+  // }
 }

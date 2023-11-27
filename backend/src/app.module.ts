@@ -11,18 +11,44 @@ import { Quiz } from './typeorm/entities/Quiz';
 import { Student_list } from './typeorm/entities/Student_list';
 import { Teacher } from './typeorm/entities/Teacher';
 import { CourseModule } from './course/course.module';
+import { RouterModule } from '@nestjs/core';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type:'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: 'chimor123@',
-    database: 'Custom',
-    entities:[Student,Exam,Course,Exam_answer,Quiz,Student_list,Teacher],
-    synchronize: false
-  }), StudentModule,CourseModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'chimor123@',
+      database: 'Custom',
+      entities: [
+        Student,
+        Exam,
+        Course,
+        Exam_answer,
+        Quiz,
+        Student_list,
+        Teacher,
+      ],
+      synchronize: false,
+    }),
+    StudentModule,
+    CourseModule,
+    // RouterModule.register([
+    //   { path: 'student', module: StudentModule },
+    //   { path: 'course', module: CourseModule , children:[
+    //     {
+    //       path: 'exam',
+    //       module: ExamModule
+    //     },
+    //     {
+    //       path: 'student-list',
+    //       module: StudentListModule
+    //     }
+    //   ]},
+    // ]),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
