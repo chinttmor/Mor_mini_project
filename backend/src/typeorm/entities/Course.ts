@@ -13,5 +13,5 @@ export class Course{
     // teacherId : number;
     @ManyToOne(()=> Teacher,(teacher)=> teacher.courses)
     @JoinColumn({name: 'teacherId'})
-    teacher = Teacher;
+    teacher: Teacher;
 }

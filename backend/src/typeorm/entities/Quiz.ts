@@ -11,7 +11,7 @@ export class Quiz {
   @PrimaryGeneratedColumn({ type: 'tinyint' })
   quizId: number;
   @Column('simple-json', { nullable: false })
-  otherInfo: {
+  content: {
     question: string;
     A: string;
     B: string;

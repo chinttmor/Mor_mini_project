@@ -24,16 +24,19 @@ export class CourseService {
   }
   async createCourse(createCourse: CreateCourseDTO, teacherId: number) :Promise<Course> {
     const courseTeacher: Teacher = await this.teacherRepo.findOne({
-      where: { teacherId: 1 },
+      where: { teacherId: teacherId },
     });
     if (!courseTeacher) {
       throw new HttpException('Teacher doesnt exist', HttpStatus.BAD_REQUEST);
     }
     // return courseTeacher
-    return this.courseRepo.save
+    const newcourse= this.courseRepo.create
     ({
-      ...createCourse,
-      courseTeacher
+      courseId: createCourse.courseId,
+      courseName: createCourse.courseName,
+      courseDescription: createCourse.courseDescription,
+      teacher: courseTeacher
     });
+    return this.courseRepo.save(newcourse)
   }
 }

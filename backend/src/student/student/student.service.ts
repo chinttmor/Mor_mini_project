@@ -22,6 +22,14 @@ export class StudentService {
     });
   }
 
+  findbyEmail(email: string) {
+    return this.studentRepo.findOne({
+      where: {
+        email: email,
+      },
+    });
+  }
+
   createStudent(studentDetails: CreateStudentDTO) {
     console.log(studentDetails);
     const newStudent = this.studentRepo.create({ ...studentDetails });

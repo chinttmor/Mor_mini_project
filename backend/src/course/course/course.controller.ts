@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseGuards } from '@nestjs/common';
 import { CourseService } from './course.service';
 import {
   Body,
@@ -15,7 +15,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateCourseDTO } from '../dto/CreateCourse.dto';
-
+import { Quiz } from 'src/decorators/quiz.decorator';
+import { AuthGuard } from 'src/auth/auth.guard';
 @Controller('course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
@@ -29,6 +30,7 @@ export class CourseController {
     //  }
     return course;
   }
+  @UseGuards(AuthGuard)
   @Post(':id')
   @UsePipes(new ValidationPipe)
   async createCourse(@Body() createCourse: CreateCourseDTO, @Param('id') teacherId: number){
@@ -36,4 +38,8 @@ export class CourseController {
     const newCourse= await this.courseService.createCourse(createCourse,teacherId);
     return newCourse;
   }
+  // @Post('/test')
+  // async test(@Quiz() quiz: QuizType){
+  //   console.log(quiz)
+  // }
 }
